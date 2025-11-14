@@ -12,9 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: npm ci && npm run build
+      - name: Build functions
+        run: cd functions && npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_SHOWCASE_1DE4C }}
           channelId: live
           projectId: portfolio-showcase-1de4c
+      - name: Deploy functions
+        run: npx firebase-tools deploy --only functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_SHOWCASE_1DE4C }}
