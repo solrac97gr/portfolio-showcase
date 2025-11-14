@@ -3,10 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build && cd functions && npm install && npm run build && cd ..",
-    "dev": "react-router dev && cd functions &&  npm install && npm run build && cd ..",
+    "build": "npm run build:frontend && npm run build:functions",
+    "build:frontend": "react-router build",
+    "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "react-router typegen && tsc",
+    "build:functions": "cd functions && npm run build && cd .."
   },
   "dependencies": {
     "@react-router/node": "^7.9.2",
